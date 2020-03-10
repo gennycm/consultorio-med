@@ -11,6 +11,8 @@
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -22,8 +24,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 // userController.php
 Route::resource('/users', 'UserController');
 
-Route::post('/user/logout', function(){
-    Session::flush();
-    Auth::logout();
-    return Redirect::to("/login");
-})->name('exit');
+Route::post('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');

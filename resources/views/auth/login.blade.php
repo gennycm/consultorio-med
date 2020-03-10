@@ -47,12 +47,13 @@
                                  @enderror                                
                               </div>
                               <div class="form-group">
+                              <!--
                                  <div class="custom-control custom-checkbox small">
                                     <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="remember">
                                     Recuérdame
                                     </label>
-                                 </div>
+                                 </div> -->
                               </div>
                               <button type="submit" class="btn btn-primary btn-user btn-block">
                               Inicia sesión
