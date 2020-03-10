@@ -21,3 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // userController.php
 Route::resource('/users', 'UserController');
+
+Route::post('/user/logout', function(){
+    Session::flush();
+    Auth::logout();
+    return Redirect::to("/login");
+})->name('exit');
