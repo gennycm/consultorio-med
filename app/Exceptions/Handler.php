@@ -46,6 +46,26 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+    /**
+        $response = [];
+
+        $response['exception'] = get_class($exception);
+        $response['status_code'] = $exception->getStatusCode();
+
+        switch($response['status_code'])
+        {
+            case 403:
+                $response['message'] = "No tienes autorización para accesar a esta página";
+                break;
+            case 404:
+                $response['message'] = "Página no encontrada";
+                break;
+            default:
+                $response['message'] = "Algo salió mal. Intente de nuevo más tarde.";
+                break;
+        }
+        return response()->view('Error.error', compact('response'));
+        **/
+        return parent::render($request, $exception); 
     }
 }

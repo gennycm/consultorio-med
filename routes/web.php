@@ -17,11 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['auth']], function() {
+   // define your route, route groups here
+   Route::get('/home', 'HomeController@index')->name('home');
+   // userController.php
+    Route::resource('/users', 'UserController');
+    Route::resource('/roles', 'RoleController');
+    Route::post('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+});
 
-// userController.php
-Route::resource('/users', 'UserController');
 
-Route::post('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+
