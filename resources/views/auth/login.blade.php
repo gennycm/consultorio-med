@@ -47,25 +47,11 @@
                                  @enderror                                
                               </div>
                               <div class="form-group">
-                              <!--
-                                 <div class="custom-control custom-checkbox small">
-                                    <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="remember">
-                                    Recuérdame
-                                    </label>
-                                 </div> -->
                               </div>
                               <button type="submit" class="btn btn-primary btn-user btn-block">
                               Inicia sesión
                               </button>
                               <hr>
-                              <div class="text-center">
-                                 @if (Route::has('password.request'))
-                                 <a class="small" href="{{ route('password.request') }}">
-                                 Olvidé mi contraseña
-                                 </a>
-                                 @endif
-                              </div>
                            </form>
                         </div>
                      </div>

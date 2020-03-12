@@ -46,6 +46,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        
     /**
         $response = [];
 
@@ -65,7 +66,12 @@ class Handler extends ExceptionHandler
                 break;
         }
         return response()->view('Error.error', compact('response'));
+        if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
+            return response()->json(['El usuario no tiene permiso para acceder a esta página.']);
+        }
         **/
         return parent::render($request, $exception); 
     }
+
+
 }

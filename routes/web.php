@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['register' => false]);
+Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
    // define your route, route groups here
@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function() {
    // userController.php
     Route::resource('/users', 'UserController');
     Route::resource('/roles', 'RoleController');
+    Route::resource('/patients', 'PatientController');
     Route::post('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 });
 

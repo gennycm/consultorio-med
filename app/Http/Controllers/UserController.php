@@ -1,24 +1,40 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\User;
+use Spatie\Permission\Models\Role;
+use DB;
+use Hash;
+
 
 class UserController extends Controller
 {
+
+    function __construct()
+    {       
+         //Usuarios
+         $this->middleware('permission:Ver usuarios|Crear usuarios|Editar usuarios|Eliminar usuarios', ['only' => ['index','store']]);
+         $this->middleware('permission:Ver usuarios', ['only' => ['create','store']]);
+         $this->middleware('permission:Editar usuarios', ['only' => ['edit','update']]);
+         $this->middleware('permission:Eliminar usuarios', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-
-        return view('user/index', compact('users'));
+        $data = User::orderBy('id','DESC')->paginate(5);
+        return view('users.index',compact('data'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -27,8 +43,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user/create');
+        $roles = Role::pluck('name','name')->all();
+        return view('users.create',compact('roles'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -38,15 +56,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|same:confirm-password',
+            'roles' => 'required'
         ]);
-        $user = User::create($validatedData);
 
-        return redirect('/users')->with('success', 'El usuario fue creado exitosamente.');
+
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+
+
+        $user = User::create($input);
+        $user->assignRole($request->input('roles'));
+
+
+        return redirect()->route('users.index')
+                        ->with('success','Usuario creado exitosamente.');
     }
+
 
     /**
      * Display the specified resource.
@@ -56,8 +85,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('users.show',compact('user'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -67,10 +98,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-         $user  = User::findOrFail($id);
+        $user = User::find($id);
+        $roles = Role::pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name','name')->all();
 
-        return view('user.edit', compact('user'));
+
+        return view('users.edit',compact('user','roles','userRole'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -81,16 +116,34 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|string|email:rfc,dns|max:255|unique:users,email,'.$user->id
-
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'password' => 'same:confirm-password',
+            'roles' => 'required'
         ]);
-        User::whereId($id)->update($validatedData);
 
-        return redirect('/users')->with('success', 'Actualización exitosa');
+
+        $input = $request->all();
+        if(!empty($input['password'])){ 
+            $input['password'] = Hash::make($input['password']);
+        }else{
+            $input = array_except($input,array('password'));    
+        }
+
+
+        $user = User::find($id);
+        $user->update($input);
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+
+
+        $user->assignRole($request->input('roles'));
+
+
+        return redirect()->route('users.index')
+                        ->with('success','Usuario actualizado exitosamente');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -100,9 +153,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect('/users')->with('success', 'User is successfully deleted');
+        User::find($id)->delete();
+        return redirect()->route('users.index')
+                        ->with('success','Usuario eliminado exitosamente');
     }
 }

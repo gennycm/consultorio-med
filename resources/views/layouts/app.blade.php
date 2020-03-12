@@ -52,7 +52,11 @@
             <i class="fas fa-fw fa-user"></i>
             <span>Usuarios</span></a>
          </li>
-
+         <li class="nav-item {{ Request::is('roles') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/roles') }}">
+            <i class="fas fa-key"></i>
+            <span>Roles y permisos</span></a>
+         </li>
          <!-- Divider -->
          <hr class="sidebar-divider d-none d-md-block">
        
