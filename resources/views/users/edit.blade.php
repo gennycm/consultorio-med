@@ -22,7 +22,7 @@
       </ul>
    </div>
    @endif
-   {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
+   {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id], 'autocomplete' => 'off']) !!}
    <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
          <div class="form-group">
@@ -39,7 +39,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12">
          <div class="form-group">
             <strong>Contraseña:</strong>
-            {!! Form::password('password', array('class' => 'form-control')) !!}
+            {!! Form::password('password', array('class' => 'form-control', 'id' => 'password')) !!}
          </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12">
@@ -51,7 +51,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12">
          <div class="form-group">
             <strong>Roles:</strong>
-            {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+            {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control')) !!}
          </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 text-center">

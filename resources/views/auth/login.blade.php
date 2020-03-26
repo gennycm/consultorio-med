@@ -28,10 +28,10 @@
                            <div class="text-center">
                               <h1 class="h4 text-gray-900 mb-4">¡Bienvenido!</h1>
                            </div>
-                           <form class="user" method="POST" action="{{ route('login') }}">
+                           <form class="user" method="POST" action="{{ route('login') }}" autocomplete="off">
                               @csrf
                               <div class="form-group">
-                                 <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Correo electrónico">
+                                 <input id="email" type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" autofocus placeholder="Correo electrónico">
                                  @error('email')
                                  <span class="invalid-feedback" role="alert">
                                  <strong>{{ $message }}</strong>

@@ -26,6 +26,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('/users', 'UserController');
     Route::resource('/roles', 'RoleController');
     Route::resource('/patients', 'PatientController');
+    Route::resource('/institutions', 'InstitutionController');
+    Route::get('/search-institutions', 'InstitutionController@search');
+    Route::get('/clean-institutions', 'InstitutionController@clean');
+   // Route::get('/filter-institutions', 'InstitutionController@filter');
     Route::post('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 });
 

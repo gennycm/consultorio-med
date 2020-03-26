@@ -10611,6 +10611,14 @@ form.user .form-control-user {
   padding: 1.5rem 1rem;
 }
 
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  form.user .form-control-user {
+    font-size: 0.8rem;
+    border-radius: 10rem;
+    padding: 0.5rem 1rem;
+  }  
+}
+
 form.user .btn-user {
   font-size: 0.8rem;
   border-radius: 10rem;

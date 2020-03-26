@@ -12,6 +12,8 @@ class Patient extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'lastname_1', 'lastname_2'
+        'name', 'first_lastname', 'second_lastname', 'street', 'number', 'crossing_1', 'crossing_2', 'street_name', 'postal_code',
+        'city', 'state', 'country', 'cellphone' , 'email', 'RFC', 'institution_name','is_surrogate','surrogate_id'
     ];
+
 }

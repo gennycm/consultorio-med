@@ -22,7 +22,15 @@ class PermissionTableSeeder extends Seeder
            'Ver usuarios',
            'Crear usuarios',
            'Editar usuarios',
-           'Eliminar usuarios'
+           'Eliminar usuarios',
+           'Ver instituciones',
+           'Crear instituciones',
+           'Editar instituciones',
+           'Eliminar instituciones',
+           'Ver pacientes',
+           'Crear pacientes',
+           'Editar pacientes',
+           'Eliminar pacientes'
         ];
 
 
