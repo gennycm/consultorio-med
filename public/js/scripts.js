@@ -1,5 +1,8 @@
 function search(url,table_name) {
-    var searchText = $("input[name='search']").val();
+    var searchText = $("input[name='search']").val().trim();
+    if(searchText.length === 0){
+        searchText = " ";
+    }
     $.ajax({
         url: url,
         data: {
@@ -22,7 +25,7 @@ function clean_search_results(url,table_name) {
 }
 
 function filter(url, table_name){
-    var selectedValue =  $("#select-change").val();
+    var selectedValue =  $("#select-change").val().trim();
     $.ajax({
         url: url,
         data: {
