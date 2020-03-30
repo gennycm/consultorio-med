@@ -1,4 +1,13 @@
-._label{
+._label {
     background-color: transparent !important;
     border-color: transparent !important;
+}
+
+.logo {
+    width: 35px;
+}
+
+
+.personas_label{
+    margin: 32px 20px;
 }

@@ -6,7 +6,26 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <!-- CSRF Token -->
    <meta name="csrf-token" content="{{ csrf_token() }}">
-   <title>Consultorio</title>
+   <title>Consultorio Cerón</title>
+
+   <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('img/apple-icon-57x57.png')}}">
+   <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('img/apple-icon-60x60.png')}}">
+   <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('img/apple-icon-72x72.png')}}">
+   <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/apple-icon-76x76.png')}}">
+   <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('img/apple-icon-114x114.png')}}">
+   <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('img/apple-icon-120x120.png')}}">
+   <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('img/apple-icon-144x144.png')}}">
+   <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('img/apple-icon-152x152.png')}}">
+   <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-icon-180x180.png')}}">
+   <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('img/android-icon-192x192.png')}}">
+   <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png')}}">
+   <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('img/favicon-96x96.png')}}">
+   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png')}}">
+   <link rel="manifest" href="{{ asset('img/manifest.json')}}">
+   <meta name="msapplication-TileColor" content="#ffffff">
+   <meta name="msapplication-TileImage" content="{{ asset('img/ms-icon-144x144.png')}}">
+   <meta name="theme-color" content="#ffffff">
+
    <!-- Scripts -->
    <script src="{{ asset('js/app.js') }}" defer></script>
    <!-- Fonts -->
@@ -44,9 +63,10 @@
          <!-- Sidebar - Brand -->
          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
             <div class="sidebar-brand-icon">
-               <i class="fas fa-briefcase-medical"></i>
+               <img class="logo" src="{{ asset('img/logoceron.svg') }}">
+
             </div>
-            <div class="sidebar-brand-text mx-3">Consultorio</div>
+            <div class="sidebar-brand-text mx-3" style="padding-top: 5px;">Consultorio</div>
          </a>
          <!-- Divider -->
          <hr class="sidebar-divider my-0">
@@ -82,11 +102,18 @@
          <div class="sidebar-heading">
             Otros
          </div>
-         @can('Ver pacientes')
+         @can('Ver instituciones')
          <li class="nav-item {{ Request::is('institutions') ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('/institutions') }}">
                <i class="fas fa-building"></i>
                <span>Instituciones</span></a>
+         </li>
+         @endcan
+         @can('Ver pacientes')
+         <li class="nav-item {{ Request::is('patients') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/patients') }}">
+               <i class="fas fa-address-book"></i>
+               <span>Pacientes</span></a>
          </li>
          @endcan
          <!-- Divider -->

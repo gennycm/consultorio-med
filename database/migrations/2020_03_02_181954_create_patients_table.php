@@ -30,9 +30,15 @@ class CreatePatientsTable extends Migration
             $table->string('cellphone');
             $table->string('email');
             $table->string('RFC');
-            $table->string('institution_name');
-            $table->string('is_surrogate');
-            $table->string('surrogate_id'); //TO DO: mark as FK later
+            $table->integer('p_phys')->nullable();
+            $table->integer('p_moral')->nullable();
+            $table->string('trade_name')->nullable();
+            $table->integer('is_surrogate')->nullable();
+            $table->unsignedBigInteger('surrogate_id')->nullable(); //TO DO: mark as FK later
+
+            $table->foreign('surrogate_id')
+                ->references('id')
+                ->on('institutions');
 
             $table->timestamps();
         });

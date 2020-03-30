@@ -3,46 +3,66 @@
 @section('content')
 <style>
    .uper {
-   margin-top: 40px;
+      margin-top: 40px;
    }
 </style>
 <div class="container-fluid">
    <!-- Page Heading -->
    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Roles</h1>
-    @can('Crear roles')
+      <h1 class="h3 mb-0 text-gray-800">Pacientes</h1>
+      @can('Crear pacientes')
       <div class="col-md-2">
-         <a  class="btn btn-success btn-icon-split" href="{{route ('roles.create')}}">
-         <span class="icon text-white-50">
-         <i class="fas fa-plus"></i>
-         </span>
-         <span class="text">Agregar Rol</span>
+         <a class="btn btn-success btn-icon-split" href="{{route ('patients.create')}}">
+            <span class="icon text-white-50">
+               <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Agregar Paciente</span>
          </a>
       </div>
-    @endcan
+      @endcan
    </div>
    <!-- Content Row -->
    @if ($message = Session::get('success'))
    <div class="alert alert-success alert-dismissible fade show">
-     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       <p>{{ $message }}</p>
    </div>
    @endif
-    <table class="table table-striped">
+   <table class="table table-striped">
       <tr>
          <th>Nombre</th>
+         <th>Celular</th>
+         <th>Correo</th>
+         <th>Persona</th>
+         <th>Subrogado</th>
          <th width="280px">Acciones</th>
       </tr>
-      @foreach ($roles as $key => $role)
+      @foreach ($patients as $key => $patient)
       <tr>
-         <td>{{ $role->name }}</td>
+         <td>{{ $patient->name }} {{ $patient->first_lastname }} {{ $patient->second_lastname }}</td>
+         <td>{{ $patient->cellphone }}</td>
+         <td>{{ $patient->email }}</td>
          <td>
-            <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Ver</a>
-            @can('Editar roles')
-            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
+            @if ($patient->p_phys === 0)
+               Física
+            @elseif ($patient->p_moral === 0)
+               Moral
+            @endif
+         </td>
+         <td>
+            @if ($patient->is_subrogated === 0)
+               Sí
+            @else
+               No
+            @endif
+         </td>
+         <td>
+            <a class="btn btn-info" href="{{ route('patients.show',$patient->id) }}">Ver</a>
+            @can('Editar pacientes')
+            <a class="btn btn-primary" href="{{ route('patients.edit',$patient->id) }}">Editar</a>
             @endcan
-            @can('Eliminar roles')
-            {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
+            @can('Eliminar pacientes')
+            {!! Form::open(['method' => 'DELETE','route' => ['patients.destroy', $patient->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
             {!! Form::close() !!}
             @endcan
@@ -50,6 +70,6 @@
       </tr>
       @endforeach
    </table>
-   {!! $roles->render() !!}
+   {!! $patients->render() !!}
 </div>
 @endsection
