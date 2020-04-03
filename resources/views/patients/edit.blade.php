@@ -26,7 +26,7 @@
     @endif
 
 
-    {!! Form::open(array('route' => 'patients.store','method'=>'POST', 'autocomplete'=>'off')) !!}
+    {!! Form::model($patient, ['method' => 'PATCH','route' => ['patients.update', $patient->id]]) !!}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <h5>Datos personales</h5>
@@ -147,7 +147,7 @@
         </div>
         <div class="col-xs-12 col-sm-2 col-md-2">
             <div class="form-group">
-                <label class="personas_label">{{ Form::radio('personas', 'pfisica', true, array('class' => 'form-check-input')) }}
+                <label class="personas_label">{{ Form::radio('personas', 'pfisica', $patient->p_phys == 0? true:false, array('class' => 'form-check-input')) }}
                     Persona física</label>
                 {!! Form::text('p_phys', null, array('class' => 'form-control', 'hidden'=>'true')) !!}
             </div>
@@ -155,7 +155,7 @@
         <div class="col-xs-12 col-sm-2 col-md-2">
 
             <div class="form-group">
-                <label class="personas_label">{{ Form::radio('personas', 'pmoral', false, array('class' => 'form-check-input')) }}
+                <label class="personas_label">{{ Form::radio('personas', 'pmoral', $patient->p_moral == 0? true:false, array('class' => 'form-check-input')) }}
                     Persona moral</label>
                 {!! Form::text('p_moral', null, array('class' => 'form-control', 'hidden'=>'true')) !!}
             </div>
@@ -170,7 +170,7 @@
         <div class="col-xs-12 col-sm-2 col-md-2">
 
             <div class="form-group">
-                <label class="personas_label">{{ Form::checkbox('is_surrogate_check',null, false, array('class' => 'form-check-input')) }}
+                <label class="personas_label">{{ Form::checkbox('is_surrogate_check',null, $patient->is_surrogate == 0? true:false, array('class' => 'form-check-input')) }}
                     ¿Es subrogado?</label>
                 {!! Form::text('is_surrogate', null, array('class' => 'form-control', 'hidden'=>'true')) !!}
 
@@ -179,7 +179,7 @@
         <div class="col-xs-10 col-sm-10 col-md-10">
             <div class="form-group">
                 <strong>Relación a otra institución:</strong>
-                {!! Form::select('surrogate_id', $institutions,[], array('class' => 'form-control', 'disabled'=>'true')) !!}
+                {!! Form::select('surrogate_id', $institutions,$surrogate_id, array('class' => 'form-control', $patient->is_surrogate == 0? '':'disabled')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center" style="margin-bottom: 80px;">
@@ -192,9 +192,6 @@
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('input[type=text][name="p_phys"]').val("0");
-        $('input[type=text][name="p_moral"]').val("1");
-
         $('input[type=radio][name="personas"]').change(function() {
             var val = $('input[type=radio][name="personas"]:checked').val();
             if (val === 'pfisica') {

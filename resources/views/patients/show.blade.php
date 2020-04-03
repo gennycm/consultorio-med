@@ -116,14 +116,14 @@
       <div class="col-xs-12 col-sm-12 col-md-12">
          <div class="form-group">
             <strong>¿Es subrogado?:</strong>
-            @if ($patient->is_subrogated === 0)
+            @if ($patient->is_surrogate === 0)
             Sí
             @else
             No
             @endif
          </div>
       </div>
-      @if ($patient->is_subrogated === 0)
+      @if ($patient->is_surrogate === 0)
       <div class="col-xs-12 col-sm-12 col-md-12">
          <div class="form-group">
             <strong>Insitutición:</strong>

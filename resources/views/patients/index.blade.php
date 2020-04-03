@@ -50,7 +50,7 @@
             @endif
          </td>
          <td>
-            @if ($patient->is_subrogated === 0)
+            @if ($patient->is_surrogate === 0)
                Sí
             @else
                No
