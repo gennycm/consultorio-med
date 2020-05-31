@@ -13,6 +13,13 @@ use DB;
 
 class RoleController extends Controller
 {
+    private  $messages = [ ];
+
+    private $attributes = [
+        'name' => 'Nombre',
+        'permission' => 'Permisos'
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -64,7 +71,7 @@ class RoleController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
-        ]);
+        ], $this->messages , $this->attributes);
 
 
         $role = Role::create(['name' => $request->input('name')]);
