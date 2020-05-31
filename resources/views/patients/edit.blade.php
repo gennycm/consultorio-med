@@ -189,7 +189,7 @@
     {!! Form::close() !!}
 </div>
 @endsection
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset(config('myconfig.public_path').'/vendor/jquery/jquery.min.js') }}"></script>
 <script>
     $(document).ready(function() {
         $('input[type=radio][name="personas"]').change(function() {

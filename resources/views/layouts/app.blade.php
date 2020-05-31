@@ -8,37 +8,37 @@
    <meta name="csrf-token" content="{{ csrf_token() }}">
    <title>Consultorio Cerón</title>
 
-   <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('img/android-icon-192x192.png')}}">
-   <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png')}}">
-   <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('img/favicon-96x96.png')}}">
-   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png')}}">
-   <link rel="manifest" href="{{ asset('img/manifest.json')}}">
+   <link rel="icon" type="image/png" sizes="192x192" href="{{ asset(config('myconfig.public_path').'/img/android-icon-192x192.png')}}">
+   <link rel="icon" type="image/png" sizes="32x32" href="{{ asset(config('myconfig.public_path').'/img/favicon-32x32.png')}}">
+   <link rel="icon" type="image/png" sizes="96x96" href="{{ asset(config('myconfig.public_path').'/img/favicon-96x96.png')}}">
+   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset(config('myconfig.public_path').'/img/favicon-16x16.png')}}">
+   <link rel="manifest" href="{{ asset(config('myconfig.public_path').'/img/manifest.json')}}">
 
    <!-- Scripts -->
-   <script src="{{ asset('js/app.js') }}" defer></script>
+   <script src="{{ asset(config('myconfig.public_path').'/js/app.js') }}" defer></script>
    <!-- Fonts -->
    <link rel="dns-prefetch" href="//fonts.gstatic.com">
    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-   <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+   <link href="{{ asset(config('myconfig.public_path').'/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
    <!-- Styles -->
-   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-   <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+   <link href="{{ asset(config('myconfig.public_path').'/css/app.css') }}" rel="stylesheet">
+   <link href="{{ asset(config('myconfig.public_path').'/css/styles.css') }}" rel="stylesheet">
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-   <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
+   <link href="{{ asset(config('myconfig.public_path').'/css/sb-admin-2.css') }}" rel="stylesheet">
 
    <!-- Bootstrap core JavaScript-->
-   <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+   <script src="{{ asset(config('myconfig.public_path').'/vendor/jquery/jquery.min.js') }}"></script>
    <!-- Core plugin JavaScript-->
-   <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+   <script src="{{ asset(config('myconfig.public_path').'/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
    <!-- Custom scripts for all pages-->
-   <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+   <script src="{{ asset(config('myconfig.public_path').'/js/sb-admin-2.min.js') }}"></script>
    <!-- Page level plugins -->
-   <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
+   <script src="{{ asset(config('myconfig.public_path').'/vendor/chart.js/Chart.min.js') }}"></script>
    <!-- Page level custom scripts
    <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
    <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script> -->
    <!-- Custom scripts -->
-   <script src="{{ asset('js/scripts.js') }}"></script>
+   <script src="{{ asset(config('myconfig.public_path').'/js/scripts.js') }}"></script>
 </head>
 
 <body id="page-top">
@@ -51,7 +51,7 @@
          <!-- Sidebar - Brand -->
          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
             <div class="sidebar-brand-icon">
-               <img class="logo" src="{{ asset('img/logoceron.svg') }}">
+               <img class="logo" src="{{ asset(config('myconfig.public_path').'/img/logoceron.svg') }}">
 
             </div>
             <div class="sidebar-brand-text mx-3" style="padding-top: 5px;">Consultorio</div>
