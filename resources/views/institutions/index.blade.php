@@ -8,10 +8,12 @@
 </style>
 <div class="container-fluid">
    <!-- Page Heading -->
-   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Instituciones</h1>
+   <div class="row mb-4">
+      <div class="col-md-9">
+         <h1 class="h3 mb-0 text-gray-800">Instituciones</h1>
+      </div>
       @can('Crear instituciones')
-      <div class="col-md-2">
+      <div class="col-md-3 text-right">
          <a class="btn btn-success btn-icon-split" href="{{route ('institutions.create')}}">
             <span class="icon text-white-50">
                <i class="fas fa-plus" style="margin-top: 4.5px;"></i>

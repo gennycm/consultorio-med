@@ -8,20 +8,22 @@
 </style>
 <div class="container-fluid">
    <!-- Page Heading -->
-   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
-    @can('Crear usuarios')
-      <div class="col-md-2">
-         <a  class="btn btn-success btn-icon-split" href="{{route ('users.create')}}">
-         <span class="icon text-white-50">
-         <i class="fas fa-plus"></i>
-         </span>
-         <span class="text">Agregar Usuario</span>
+   <div class="row mb-4">
+      <div class="col-md-9">
+         <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
+      </div>
+      @can('Crear usuarios')
+      <div class="col-md-3 text-right">
+         <a class="btn btn-success btn-icon-split" href="{{route ('users.create')}}">
+            <span class="icon text-white-50">
+               <i class="fas fa-plus" style="margin-top: 4.5px;"></i>
+            </span>
+            <span class="text">Agregar Usuario</span>
          </a>
       </div>
-    @endcan
-
+      @endcan
    </div>
+
    <!-- Content Row -->
    <div class="row">
       <div class="col-md-12">

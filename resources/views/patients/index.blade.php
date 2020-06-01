@@ -8,19 +8,22 @@
 </style>
 <div class="container-fluid">
    <!-- Page Heading -->
-   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Pacientes</h1>
+   <div class="row mb-4">
+      <div class="col-md-9">
+         <h1 class="h3 mb-0 text-gray-800">Pacientes</h1>
+      </div>
       @can('Crear pacientes')
-      <div class="col-md-2">
+      <div class="col-md-3 text-right">
          <a class="btn btn-success btn-icon-split" href="{{route ('patients.create')}}">
             <span class="icon text-white-50">
-               <i class="fas fa-plus"></i>
+               <i class="fas fa-plus" style="margin-top: 4.5px;"></i>
             </span>
             <span class="text">Agregar Paciente</span>
          </a>
       </div>
       @endcan
    </div>
+
    <!-- Content Row -->
    @if ($message = Session::get('success'))
    <div class="alert alert-success alert-dismissible fade show">
@@ -44,16 +47,16 @@
          <td>{{ $patient->email }}</td>
          <td>
             @if ($patient->p_phys === 0)
-               Física
+            Física
             @elseif ($patient->p_moral === 0)
-               Moral
+            Moral
             @endif
          </td>
          <td>
             @if ($patient->is_surrogate === 0)
-               Sí
+            Sí
             @else
-               No
+            No
             @endif
          </td>
          <td>
