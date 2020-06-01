@@ -75,7 +75,38 @@
 
 
 </div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteInstModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLongTitle">Confirmación de eliminación</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <form action="{{route('institutions.destroy','test')}}" method="post" style=" margin-block-end: 0; ">
+            {{method_field('delete')}}
+            {{csrf_field()}}
+            <div class="modal-body text-center">
+               <span id="confirmation-message">
+                  ¿Seguro que quieres eliminar este elemento?
+               </span>
+               <input type="hidden" name="institution_id" id="institution_id" value="">
+
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+               <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
 @endsection
+
+
 <script src="{{ asset(config('myconfig.public_path').'/vendor/jquery/jquery.min.js') }}"></script>
 <script>
    $(document).ready(function() {
@@ -89,6 +120,17 @@
 
       $("#clean_search_results").click(function() {
          clean_search_results('/clean-institutions', '#institutions_table');
+      });
+
+      $('#deleteInstModal').on('show.bs.modal', function(event) {
+         var button = $(event.relatedTarget);
+         var institutionId = button.data('instid');
+         var hasPatients = button.data('patients');
+         var modal = $(this);
+         modal.find('.modal-body #institution_id').val(institutionId);
+         if (hasPatients == 1) {
+            modal.find('.modal-body #confirmation-message').append("Esta institución tiene pacientes subrogados. Al eliminarla, será desvinculada de los pacientes.");
+         }
       });
    });
 </script>

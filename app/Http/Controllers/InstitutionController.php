@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Institution;
+use App\Patient;
+
 
 class InstitutionController extends Controller
 {
-    private  $messages = [ ];
+    private  $messages = [];
 
     private $attributes = [
         'name' => 'Nombre',
@@ -28,10 +30,12 @@ class InstitutionController extends Controller
     public function index(Request $request)
     {
         $institutions = Institution::orderBy('name', 'asc')
-            ->with('parent')
-            ->paginate(10);
+        ->with('parent')
+        ->with('patients')
+        ->paginate(10);
         // dd($institutions);
         $parent_institutions = $this->getParentInstitutions();
+
         return view('institutions.index', compact('institutions', 'parent_institutions'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
@@ -141,11 +145,13 @@ class InstitutionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Institution::find($id)->delete();
+        $id = $request->institution_id;
+        Patient::where('surrogate_id', '=', $id)->update(['surrogate_id' => 1]); // 1 = ninguna
         Institution::where('related_institution', '=', $id)->update(['related_institution' => 1]); // 1 = ninguna
-        return redirect()->route('institutions.index')
+        Institution::find($id)->delete();
+        return back()
             ->with('success', 'Institución eliminada exitosamente');
     }
 
@@ -157,8 +163,8 @@ class InstitutionController extends Controller
         $search = $request->get('search');
         if ($search === null) {
             $institutions = Institution::orderBy('name', 'asc')
-            ->with('parent')
-            ->paginate(10);
+                ->with('parent')
+                ->paginate(10);
 
             return view('partials.institutions_table', compact('institutions'))
                 ->with('i', ($request->input('page', 1) - 1) * 10)->render();

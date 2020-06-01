@@ -15,9 +15,7 @@
             <a class="btn btn-primary" href="{{ route('institutions.edit',$institution->id) }}">Editar</a>
             @endcan
             @can('Eliminar instituciones')
-            {!! Form::open(['method' => 'DELETE','route' => ['institutions.destroy', $institution->id],'style'=>'display:inline']) !!}
-            {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
-            {!! Form::close() !!}
+            <button class="btn btn-danger" data-instid="{{$institution->id}}" data-patients="{{ count($institution->patients) > 0}}" data-toggle="modal" data-target="#deleteInstModal">Eliminar</button>
             @endcan
         </td>
     </tr>

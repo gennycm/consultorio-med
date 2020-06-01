@@ -31,5 +31,10 @@ class Institution extends Model
         return $this->hasMany('App\Institution','related_institution');
     }
 
+    public function patients()
+    {
+        return $this->hasMany('App\Patient','surrogate_id');
+    }
+
 
 }
