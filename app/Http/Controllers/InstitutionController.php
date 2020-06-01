@@ -9,6 +9,16 @@ use App\Institution;
 
 class InstitutionController extends Controller
 {
+    private  $messages = [ ];
+
+    private $attributes = [
+        'name' => 'Nombre',
+        'code' => 'Código',
+        'num_contract' => 'Número de contrato',
+        'rfc' => 'RFC',
+        'cfdi' => 'Uso de CFDI',
+        'trade_name' => 'Razón social'
+    ];
 
     /**
      * Display a listing of the resource.
@@ -53,7 +63,7 @@ class InstitutionController extends Controller
             'cfdi' => 'required',
             'trade_name' => 'required'
             //'related_institution' => 'required'
-        ]);
+        ], $this->messages, $this->attributes);
 
         $input = $request->all();
         $institution = Institution::create($input);
@@ -115,7 +125,7 @@ class InstitutionController extends Controller
             'cfdi' => 'required',
             'trade_name' => 'required'
             //'related_institution' => 'required'
-        ]);
+        ], $this->messages, $this->attributes);
 
         $input = $request->all();
         $institution = Institution::find($id);

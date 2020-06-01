@@ -43,7 +43,7 @@
     <div class="col-xs-6 col-sm-6 col-md-6">
         <div class="form-group">
             <strong>Número de contrato:</strong>
-            {!! Form::number('num_contract', null, array('class' => 'form-control')) !!}
+            {!! Form::text('num_contract', null, array('class' => 'form-control')) !!}
         </div>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6">
