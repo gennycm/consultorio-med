@@ -17,7 +17,7 @@ class CreateInstitutionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('code');
             $table->string('name');
-            $table->integer('num_contract');
+            $table->string('num_contract');
             $table->string('rfc');
             $table->string('cfdi');
             $table->string('trade_name');
