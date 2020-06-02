@@ -30,8 +30,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id', 'DESC')->paginate(10);
-        return view('users.index', compact('data'))
+        $users = User::orderBy('id', 'DESC')->paginate(10);
+        return view('users.index', compact('users'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
@@ -158,4 +158,35 @@ class UserController extends Controller
         return back()
             ->with('success', 'Usuario eliminado exitosamente');
     }
+
+
+        /**************************** Additional methods *************************************/
+
+        public function search(Request $request)
+        {
+            $search = $request->get('search');
+    
+            if ($search === null) {
+                $users = User::orderBy('name', 'asc')
+                    ->paginate(10);
+            } else {
+                $users = User::where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orderBy('name', 'asc')
+                    ->paginate(10);
+            }
+    
+            return view('partials.users_table', compact('users'))
+                ->with('i', ($request->input('page', 1) - 1) * 10)->render();
+        }
+    
+        public function clean(Request $request)
+    
+        {
+            $users = User::orderBy('name', 'asc')
+                ->paginate(10);
+                
+            return view('partials.users_table', compact('users'))
+                ->with('i', ($request->input('page', 1) - 1) * 10)->render();
+        }
 }

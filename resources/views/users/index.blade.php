@@ -3,7 +3,7 @@
 @section('content')
 <style>
    .uper {
-   margin-top: 40px;
+      margin-top: 40px;
    }
 </style>
 <div class="container-fluid">
@@ -48,7 +48,7 @@
       <div class="col-md-12">
          @if (session('status'))
          <div class="alert alert-success" role="alert">
-           
+
             {{ session('status') }}
          </div>
          @endif
@@ -62,38 +62,9 @@
             <p>{{ $message }}</p>
          </div>
          @endif
-         <table class="table table-striped">
-            <tr>
-               <th>Nombre</th>
-               <th>Correo Electrónico</th>
-               <th>Roles</th>
-               <th width="280px">Acciones</th>
-            </tr>
-            @foreach ($data as $key => $user)
-            <tr>
-               <td>{{ $user->name }}</td>
-               <td>{{ $user->email }}</td>
-               <td>
-                  @if(!empty($user->getRoleNames()))
-                  @foreach($user->getRoleNames() as $v)
-                  <label class="badge badge-success">{{ $v }}</label>
-                  @endforeach
-                  @endif
-               </td>
-               <td>
-                  <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Ver</a>
-                  @can('Editar usuarios')
-                  <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Editar</a>
-                  @endcan
-                  @can('Eliminar usuarios')
-                  <button class="btn btn-danger" data-userid="{{$user->id}}" data-toggle="modal" data-target="#deleteUserModal">Eliminar</button>
-
-                  @endcan
-               </td>
-            </tr>
-            @endforeach
-         </table>
-         {!! $data->render() !!}
+         <div id="users_table">
+            @include('partials.users_table')
+         </div>
       </div>
    </div>
 </div>

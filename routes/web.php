@@ -24,7 +24,11 @@ Route::group(['middleware' => ['auth']], function() {
    Route::get('/home', 'HomeController@index')->name('home');
    // userController.php
     Route::resource('/users', 'UserController');
+    Route::get('/search-users', 'UserController@search');
+    Route::get('/clean-users', 'UserController@clean');
+
     Route::resource('/roles', 'RoleController');
+    
     Route::resource('/patients', 'PatientController');
     Route::get('/search-patients', 'PatientController@search');
     Route::get('/clean-patients', 'PatientController@clean');
