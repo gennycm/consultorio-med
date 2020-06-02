@@ -91,7 +91,7 @@
             {{csrf_field()}}
             <div class="modal-body text-center">
                <span id="confirmation-message">
-                  ¿Seguro que quieres eliminar este elemento?
+                  ¿Seguro que quieres eliminar esta institución?
                </span>
                <input type="hidden" name="institution_id" id="institution_id" value="">
 

@@ -136,7 +136,6 @@ class PatientController extends Controller
             $surrogate_id = 0;
         }
         return view('patients.edit', compact('patient', 'institutions', 'surrogate_id'));
-
     }
 
     /**
@@ -184,23 +183,23 @@ class PatientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $id = $request->patient_id;
         Patient::find($id)->delete();
-        return redirect()->route('patients.index')
+        return back()
             ->with('success', 'Paciente eliminado exitosamente');
     }
 
 
-        /**************************** Additional methods *************************************/
+    /**************************** Additional methods *************************************/
 
-        public function search(Request $request)
-        {
-            $search = $request->get('search');
-            $patients = Patient::where('name','like','%'.$search.'%')
-            ->orWhere('email','like','%'.$search.'%')
-            ->orderBy('name','asc')
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        $patients = Patient::where('name', 'like', '%' . $search . '%')
+            ->orWhere('email', 'like', '%' . $search . '%')
+            ->orderBy('name', 'asc')
             ->paginate(10);
-
-        }
+    }
 }
