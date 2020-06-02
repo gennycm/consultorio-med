@@ -14,6 +14,17 @@ use Hash;
 
 class UserController extends Controller
 {
+    private  $messages = [
+        'password.regex' => 'La contraseña debe consistir de mínimo diez caracteres, al menos una letra mayúscula, una letra minúscula, un número y un carácter especial (p.e.: $!%.*?&@).',
+        'confirm-password.regex' => 'La contraseña debe consistir de mínimo diez caracteres, al menos una letra mayúscula, una letra minúscula, un número y un carácter especial (p.e.: $!%.*?&@).'
+    ];
+
+    private $attributes = [
+        'name' => 'Nombre',
+        'email' => 'Correo electrónico',
+        'password' => 'Contraseña',
+        'confirm-password' => 'Confirmar contraseña'
+    ];
 
     function __construct()
     {
@@ -59,9 +70,9 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
+            'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%.*?&])[A-Za-z\d@$!%.*?&]{10,}$/|same:confirm-password',
             'roles' => 'required'
-        ]);
+        ], $this->messages, $this->attributes);
 
 
         $input = $request->all();
@@ -119,9 +130,9 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'same:confirm-password',
+            'password' => 'sometimes|nullable|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%.*?&])[A-Za-z\d@$!%.*?&]{10,}$/|same:confirm-password',
             'roles' => 'required'
-        ]);
+        ], $this->messages, $this->attributes);
 
 
         $input = $request->all();
@@ -160,33 +171,33 @@ class UserController extends Controller
     }
 
 
-        /**************************** Additional methods *************************************/
+    /**************************** Additional methods *************************************/
 
-        public function search(Request $request)
-        {
-            $search = $request->get('search');
-    
-            if ($search === null) {
-                $users = User::orderBy('name', 'asc')
-                    ->paginate(10);
-            } else {
-                $users = User::where('name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orderBy('name', 'asc')
-                    ->paginate(10);
-            }
-    
-            return view('partials.users_table', compact('users'))
-                ->with('i', ($request->input('page', 1) - 1) * 10)->render();
-        }
-    
-        public function clean(Request $request)
-    
-        {
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+
+        if ($search === null) {
             $users = User::orderBy('name', 'asc')
                 ->paginate(10);
-                
-            return view('partials.users_table', compact('users'))
-                ->with('i', ($request->input('page', 1) - 1) * 10)->render();
+        } else {
+            $users = User::where('name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%')
+                ->orderBy('name', 'asc')
+                ->paginate(10);
         }
+
+        return view('partials.users_table', compact('users'))
+            ->with('i', ($request->input('page', 1) - 1) * 10)->render();
+    }
+
+    public function clean(Request $request)
+
+    {
+        $users = User::orderBy('name', 'asc')
+            ->paginate(10);
+
+        return view('partials.users_table', compact('users'))
+            ->with('i', ($request->input('page', 1) - 1) * 10)->render();
+    }
 }
