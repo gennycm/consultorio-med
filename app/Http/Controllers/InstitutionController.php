@@ -30,9 +30,9 @@ class InstitutionController extends Controller
     public function index(Request $request)
     {
         $institutions = Institution::orderBy('name', 'asc')
-        ->with('parent')
-        ->with('patients')
-        ->paginate(10);
+            ->with('parent')
+            ->with('patients')
+            ->paginate(10);
         // dd($institutions);
         $parent_institutions = $this->getParentInstitutions();
 
@@ -156,6 +156,7 @@ class InstitutionController extends Controller
     }
 
 
+
     /**************************** Additional methods *************************************/
 
     public function search(Request $request)
@@ -164,32 +165,31 @@ class InstitutionController extends Controller
         if ($search === null) {
             $institutions = Institution::orderBy('name', 'asc')
                 ->with('parent')
+                ->with('patients')
                 ->paginate(10);
-
-            return view('partials.institutions_table', compact('institutions'))
-                ->with('i', ($request->input('page', 1) - 1) * 10)->render();
         } else {
-            $institutions = DB::table('institutions AS children')
-                ->Join('institutions AS parent', 'children.related_institution', '=', 'parent.id')
-                ->select(
-                    'children.id',
-                    'children.name',
-                    'children.num_contract',
-                    'children.rfc',
-                    'children.cfdi',
-                    'children.trade_name',
-                    'children.related_institution',
-                    'parent.id AS parent_id',
-                    'parent.name AS parent_name'
-                )
-                ->where('children.name', 'like', '%' . $search . '%')
-                ->orWhere('parent.name', 'like', '%' . $search . '%')
-                ->orderBy('name', 'asc')
-                ->paginate(10);
 
-            return view('partials.institutions_search_table', compact('institutions'))
-                ->with('i', ($request->input('page', 1) - 1) * 10)->render();
+            $result_ids =
+                DB::table('institutions as A')
+                ->select('A.id')
+                ->join('institutions as B', function ($join) {
+                    $join->on('A.related_institution', '=', 'B.id');
+                })
+                ->where('A.name', 'like', '%' . $search . '%')
+                ->orWhere('B.name', 'like', '%' . $search . '%')
+                ->orderBy('A.name', 'asc')
+                ->get()
+                ->pluck('id')->toArray();
+
+            $institutions = Institution::orderBy('name', 'asc')
+                ->with('parent')
+                ->with('patients')
+                ->whereIn('id', $result_ids)
+                ->paginate(10);
         }
+
+        return view('partials.institutions_table', compact('institutions'))
+            ->with('i', ($request->input('page', 1) - 1) * 10)->render();
     }
 
     public function clean(Request $request)
