@@ -7,6 +7,8 @@ use App\Patient;
 use App\Institution;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
+
 
 class PatientController extends Controller
 {
@@ -197,9 +199,27 @@ class PatientController extends Controller
     public function search(Request $request)
     {
         $search = $request->get('search');
-        $patients = Patient::where('name', 'like', '%' . $search . '%')
-            ->orWhere('email', 'like', '%' . $search . '%')
-            ->orderBy('name', 'asc')
+
+        if ($search === null) {
+            $patients = Patient::orderBy('name', 'asc')
+                ->paginate(10);
+        } else {
+            $patients = Patient::where('name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%')
+                ->orderBy('name', 'asc')
+                ->paginate(10);
+        }
+
+        return view('partials.patients_table', compact('patients'))
+            ->with('i', ($request->input('page', 1) - 1) * 10)->render();
+    }
+
+    public function clean(Request $request)
+    {
+        $patients = Patient::orderBy('name', 'asc')
             ->paginate(10);
+
+        return view('partials.patients_table', compact('patients'))
+            ->with('i', ($request->input('page', 1) - 1) * 10)->render();
     }
 }
