@@ -2,51 +2,52 @@
 @extends('layouts.app')
 @section('content')
 <style>
-   .uper {
-   margin-top: 40px;
-   }
+    .uper {
+        margin-top: 40px;
+    }
 </style>
 <div class="container-fluid">
-   <!-- Page Heading -->
-   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Editar rol</h1>
-   </div>
-   <!-- Content Row -->
-@if (count($errors) > 0)
-    <div class="alert alert-danger">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Editar rol</h1>
+    </div>
+    <!-- Content Row -->
+    @if (count($errors) > 0)
+    <div class="alert alert-danger  alert-dismissible fade show">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
         <ul>
-        @foreach ($errors->all() as $error)
+            @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
-        @endforeach
+            @endforeach
         </ul>
     </div>
-@endif
+    @endif
 
 
-{!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Nombre:</strong>
-            {!! Form::text('name', null, array('class' => 'form-control')) !!}
+    {!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Nombre:</strong>
+                {!! Form::text('name', null, array('class' => 'form-control')) !!}
+            </div>
         </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Permisos:</strong>
-            <br/>
-            @foreach($permission as $value)
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Permisos:</strong>
+                <br />
+                @foreach($permission as $value)
                 <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
-                {{ $value->name }}</label>
-            <br/>
-            @endforeach
+                    {{ $value->name }}</label>
+                <br />
+                @endforeach
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+            <button type="submit" class="btn btn-success float-right">Guardar cambios</button>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-success float-right">Guardar cambios</button>
-    </div>
-</div>
-{!! Form::close() !!}
+    {!! Form::close() !!}
 </div>
 @endsection
