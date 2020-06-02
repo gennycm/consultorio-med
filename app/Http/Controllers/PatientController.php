@@ -215,10 +215,11 @@ class PatientController extends Controller
     }
 
     public function clean(Request $request)
+
     {
         $patients = Patient::orderBy('name', 'asc')
             ->paginate(10);
-
+            
         return view('partials.patients_table', compact('patients'))
             ->with('i', ($request->input('page', 1) - 1) * 10)->render();
     }
