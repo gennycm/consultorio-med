@@ -8,8 +8,13 @@
 </style>
 <div class="container-fluid">
    <!-- Page Heading -->
-   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800"> <strong>Paciente:</strong> {{ $patient->name }} {{ $patient->first_lastname }} {{ $patient->second_lastname }}</h1>
+   <div class="row mb-4">
+      <div class="col-xs-10 col-sm-10 col-md-10">
+         <h1 class="h3 mb-0 text-gray-800"> <strong>Paciente:</strong> {{ $patient->name }} {{ $patient->first_lastname }} {{ $patient->second_lastname }}</h1>
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2">
+         <a class="btn btn-secondary float-right" href="{{ URL::previous() }}" role="button" style="margin-right:10px">Regresar a Pacientes</a>
+      </div>
    </div>
    <!-- Content Row -->
    <div class="row">
