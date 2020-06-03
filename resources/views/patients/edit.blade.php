@@ -180,7 +180,7 @@
         <div class="col-xs-10 col-sm-10 col-md-10">
             <div class="form-group">
                 <strong>Relación a otra institución:</strong>
-                {!! Form::select('surrogate_id', $institutions,$surrogate_id, array('class' => 'form-control', $patient->is_surrogate == 0? '':'disabled')) !!}
+                {!! Form::select('surrogate_id', $institutions,$surrogate_id, array('id'=>'surrogate_id', 'class' => 'form-control', $patient->is_surrogate == 0? '':'disabled')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center" style="margin-bottom: 80px;">
@@ -209,12 +209,9 @@
 
         if ($('input[type="checkbox"][name="is_surrogate_check"]').is(":checked")) {
             // it is checked
-            console.log("checked")
         }
 
         $('input[type="checkbox"][name="is_surrogate_check"]').change(function() {
-            console.log("changed")
-
             if ($('input[type="checkbox"][name="is_surrogate_check"]').is(":checked")) {
                 // it is checked
                 $('select[name="surrogate_id"]').prop("disabled", false);
@@ -223,6 +220,7 @@
             } else {
                 $('select[name="surrogate_id"]').prop("disabled", true);
                 $('input[type=text][name="is_surrogate"]').val("1");
+                $('#surrogate_id').val("1"); //Ninguna
             }
 
             var id = $(this).val(); // this gives me null
