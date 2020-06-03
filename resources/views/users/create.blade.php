@@ -74,7 +74,8 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-success float-right">Agregar</button>
+            <button type="submit" class="btn btn-success float-right">Guardar</button>
+            <a class="btn btn-secondary float-right" href="{{ URL::previous() }}" role="button" style="margin-right:10px">Cancelar</a>
         </div>
     </div>
     {!! Form::close() !!}
