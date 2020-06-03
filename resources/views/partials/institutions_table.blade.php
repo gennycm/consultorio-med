@@ -4,6 +4,7 @@
         <th>Relación a otra Institución</th>
         <th width="280px">Acciones</th>
     </tr>
+    @if(count($institutions)>0)
     @foreach ($institutions as $key => $institution)
     @if($institution->id != 1)
     <tr>
@@ -21,6 +22,15 @@
     </tr>
     @endif
     @endforeach
+    @else
+    <tr>
+        <td colspan="3">
+            <div class="alert alert-info text-center" role="alert">
+                No se encontraron resultados.
+            </div>
+        </td>
+    </tr>
+    @endif
 </table>
 <div class="float-right">
     {!! $institutions->render() !!}

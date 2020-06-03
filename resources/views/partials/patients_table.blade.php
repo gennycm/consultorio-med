@@ -7,6 +7,7 @@
         <th>Subrogado</th>
         <th width="280px">Acciones</th>
     </tr>
+    @if(count($patients)>0)
     @foreach ($patients as $key => $patient)
     <tr>
         <td>{{ $patient->name }} {{ $patient->first_lastname }} {{ $patient->second_lastname }}</td>
@@ -37,6 +38,15 @@
         </td>
     </tr>
     @endforeach
+    @else
+    <tr>
+        <td colspan="6">
+            <div class="alert alert-info text-center" role="alert">
+                No se encontraron resultados.
+            </div>
+        </td>
+    </tr>
+    @endif
 </table>
 <div class="float-right">
     {!! $patients->render() !!}
