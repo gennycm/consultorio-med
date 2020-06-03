@@ -18,12 +18,14 @@
         </td>
         <td>
             <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Ver</a>
-            @can('Editar usuarios')
-            <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Editar</a>
-            @endcan
-            @can('Eliminar usuarios')
-            <button class="btn btn-danger" data-userid="{{$user->id}}" data-toggle="modal" data-target="#deleteUserModal">Eliminar</button>
-            @endcan
+                @can('Editar usuarios')
+                <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Editar</a>
+                @endcan
+            @if($user->id != Auth::user()->id)
+                @can('Eliminar usuarios')
+                <button class="btn btn-danger" data-userid="{{$user->id}}" data-toggle="modal" data-target="#deleteUserModal">Eliminar</button>
+                @endcan
+            @endif
         </td>
     </tr>
     @endforeach
