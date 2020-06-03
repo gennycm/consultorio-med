@@ -71,7 +71,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name',
+            'name' => 'required|unique:roles,name|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
             'permission' => 'required',
         ], $this->messages, $this->attributes);
 
@@ -130,7 +130,7 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:roles,name|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
             'permission' => 'required',
         ], $this->messages, $this->attributes);
 

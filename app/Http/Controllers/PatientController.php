@@ -77,25 +77,25 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'first_lastname' => 'required',
-            'second_lastname' => 'required',
+            'name' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s]+$/',
+            'first_lastname' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s]+$/',
+            'second_lastname' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s]+$/',
             'cellphone' => 'required|numeric|regex:/[0-9]{10}/',
             'email' => 'required|email|unique:patients,email',
-            'street' => 'required',
-            'number' => 'required',
-            'crossing_1' => 'required',
-            'street_name' => 'required',
+            'street' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'number' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'crossing_1' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'street_name' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s]+$/',
             'postal_code' => 'required|numeric|regex:/[0-9]{5}/',
-            'city' => 'required',
-            'state' => 'required',
-            'country' => 'required',
-            'RFC' => 'required',
+            'city' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s]+$/',
+            'state' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s]+$/',
+            'country' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s]+$/',
+            'RFC' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s]+$/',
             'p_phys' => 'nullable',
             'p_moral' => 'nullable',
-            'trade_name' => 'nullable',
+            'trade_name' => 'nullable|^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s.-]+$',
             'is_surrogate' => 'nullable',
-            'surrogate_id' => 'nullable'
+            'surrogate_id' => 'nullable|numeric'
         ], $this->messages, $this->attributes);
 
         $input = $request->all();
@@ -150,25 +150,25 @@ class PatientController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'first_lastname' => 'required',
-            'second_lastname' => 'required',
+            'name' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'first_lastname' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'second_lastname' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
             'cellphone' => 'required|numeric|regex:/[0-9]{10}/',
-            'email' => 'required|email|unique:patients,email,' . $id,
-            'street' => 'required',
-            'number' => 'required',
-            'crossing_1' => 'required',
-            'street_name' => 'required',
+            'email' => 'required|email|unique:patients,email',
+            'street' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'number' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'crossing_1' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'street_name' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s]+$/',
             'postal_code' => 'required|numeric|regex:/[0-9]{5}/',
-            'city' => 'required',
-            'state' => 'required',
-            'country' => 'required',
-            'RFC' => 'required',
+            'city' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'state' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'country' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'RFC' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s]+$/',
             'p_phys' => 'nullable',
             'p_moral' => 'nullable',
-            'trade_name' => 'nullable',
+            'trade_name' => 'nullable|^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s.-]+$',
             'is_surrogate' => 'nullable',
-            'surrogate_id' => 'nullable'
+            'surrogate_id' => 'nullable|numeric'
         ], $this->messages, $this->attributes);
 
         $input = $request->all();

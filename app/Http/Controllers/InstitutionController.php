@@ -60,12 +60,12 @@ class InstitutionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'code' => 'required',
-            'num_contract' => 'required',
-            'rfc' => 'required',
-            'cfdi' => 'required',
-            'trade_name' => 'required'
+            'name' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'code' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'num_contract' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'rfc' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'cfdi' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'trade_name' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/'
             //'related_institution' => 'required'
         ], $this->messages, $this->attributes);
 
@@ -122,12 +122,12 @@ class InstitutionController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'code' => 'required',
-            'num_contract' => 'required',
-            'rfc' => 'required',
-            'cfdi' => 'required',
-            'trade_name' => 'required'
+            'name' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'code' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'num_contract' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'rfc' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'cfdi' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'trade_name' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/'
             //'related_institution' => 'required'
         ], $this->messages, $this->attributes);
 
