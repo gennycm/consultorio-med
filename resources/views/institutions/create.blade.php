@@ -28,6 +28,8 @@
 
 
     {!! Form::open(array('route' => 'institutions.store','method'=>'POST', 'autocomplete'=>'off')) !!}
+    @csrf
+
     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="form-group">

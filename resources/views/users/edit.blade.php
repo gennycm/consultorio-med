@@ -24,6 +24,8 @@
    </div>
    @endif
    {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id], 'autocomplete' => 'off']) !!}
+   @csrf
+
    <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
          <div class="form-group">
