@@ -68,7 +68,7 @@
             {{csrf_field()}}
             <div class="modal-body text-center">
                <span id="confirmation-message">
-                  ¿Seguro que quieres eliminar este usuario?
+                  ¿Seguro que quieres eliminar este rol?
                </span>
                <input type="hidden" name="role_id" id="role_id" value="">
 
@@ -97,8 +97,17 @@
       $('#deleteRolesModal').on('show.bs.modal', function(event) {
          var button = $(event.relatedTarget);
          var roleId = button.data('roleid');
+         var hasUsers = button.data('users');
          var modal = $(this);
          modal.find('.modal-body #role_id').val(roleId);
+         if (hasUsers == 1) {
+            modal.find('.modal-body #confirmation-message').append("<br/>Existen usuarios con este rol asignado. Al eliminarlo, dichos usuarios se " +
+               "quedarán sin rol por lo que perderán sus permisos.");
+         }
+      });
+
+      $('#deleteRolesModal').on('hidden.bs.modal', function(event) {
+         $('#confirmation-message').text("¿Seguro que quieres eliminar este rol?");
       });
    });
 </script>

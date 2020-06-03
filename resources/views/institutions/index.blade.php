@@ -129,8 +129,12 @@
          var modal = $(this);
          modal.find('.modal-body #institution_id').val(institutionId);
          if (hasPatients == 1) {
-            modal.find('.modal-body #confirmation-message').append("Esta institución tiene pacientes subrogados. Al eliminarla, será desvinculada de los pacientes.");
+            modal.find('.modal-body #confirmation-message').append("<br/>Esta institución tiene pacientes subrogados. Al eliminarla, será desvinculada de los pacientes.");
          }
+      });
+
+      $('#deleteInstModal').on('hidden.bs.modal', function(event) {
+         $('#confirmation-message').text("¿Seguro que quieres eliminar este usuario?");
       });
    });
 </script>

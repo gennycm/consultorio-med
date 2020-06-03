@@ -42,9 +42,11 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('name', 'ASC')->paginate(5);
+        $roles = Role::orderBy('name', 'ASC')
+            ->with('users')
+            ->paginate(10);
         return view('roles.index', compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
 
@@ -166,9 +168,11 @@ class RoleController extends Controller
 
         if ($search === null) {
             $roles = Role::orderBy('name', 'asc')
+                ->with('users')
                 ->paginate(10);
         } else {
             $roles = Role::where('name', 'like', '%' . $search . '%')
+                ->with('users')
                 ->orderBy('name', 'asc')
                 ->paginate(10);
         }
@@ -178,9 +182,9 @@ class RoleController extends Controller
     }
 
     public function clean(Request $request)
-
     {
         $roles = Role::orderBy('name', 'asc')
+            ->with('users')
             ->paginate(10);
 
         return view('partials.roles_table', compact('roles'))

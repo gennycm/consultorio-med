@@ -14,7 +14,7 @@
             <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
             @endcan
             @can('Eliminar roles')
-            <button class="btn btn-danger" data-roleid="{{$role->id}}" data-toggle="modal" data-target="#deleteRolesModal">Eliminar</button>
+            <button class="btn btn-danger" data-roleid="{{$role->id}}" data-users="{{ count($role->users) > 0}}" data-toggle="modal" data-target="#deleteRolesModal">Eliminar</button>
             @endcan
             @endif
         </td>
