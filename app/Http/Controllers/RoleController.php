@@ -13,7 +13,7 @@ use DB;
 
 class RoleController extends Controller
 {
-    private  $messages = [ ];
+    private  $messages = [];
 
     private $attributes = [
         'name' => 'Nombre',
@@ -28,10 +28,10 @@ class RoleController extends Controller
     function __construct()
     {
 
-         $this->middleware('permission:Ver roles|Crear roles|Editar roles|Eliminar roles', ['only' => ['index','store']]);
-         $this->middleware('permission:Ver roles', ['only' => ['create','store']]);
-         $this->middleware('permission:Editar roles', ['only' => ['edit','update']]);
-         $this->middleware('permission:Eliminar roles', ['only' => ['destroy']]);
+        $this->middleware('permission:Ver roles|Crear roles|Editar roles|Eliminar roles', ['only' => ['index', 'store']]);
+        $this->middleware('permission:Ver roles', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Editar roles', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:Eliminar roles', ['only' => ['destroy']]);
     }
 
 
@@ -42,8 +42,8 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id','ASC')->paginate(5);
-        return view('roles.index',compact('roles'))
+        $roles = Role::orderBy('name', 'ASC')->paginate(5);
+        return view('roles.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -56,7 +56,7 @@ class RoleController extends Controller
     public function create()
     {
         $permission = Permission::get();
-        return view('roles.create',compact('permission'));
+        return view('roles.create', compact('permission'));
     }
 
 
@@ -71,7 +71,7 @@ class RoleController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
-        ], $this->messages , $this->attributes);
+        ], $this->messages, $this->attributes);
 
 
         $role = Role::create(['name' => $request->input('name')]);
@@ -79,7 +79,7 @@ class RoleController extends Controller
 
 
         return redirect()->route('roles.index')
-                        ->with('success','Rol creado exitosamente');
+            ->with('success', 'Rol creado exitosamente');
     }
     /**
      * Display the specified resource.
@@ -90,12 +90,12 @@ class RoleController extends Controller
     public function show($id)
     {
         $role = Role::find($id);
-        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-            ->where("role_has_permissions.role_id",$id)
+        $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
+            ->where("role_has_permissions.role_id", $id)
             ->get();
 
 
-        return view('roles.show',compact('role','rolePermissions'));
+        return view('roles.show', compact('role', 'rolePermissions'));
     }
 
 
@@ -109,12 +109,12 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $permission = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
+            ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
 
 
-        return view('roles.edit',compact('role','permission','rolePermissions'));
+        return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
     }
 
 
@@ -130,7 +130,7 @@ class RoleController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'permission' => 'required',
-        ]);
+        ], $this->messages, $this->attributes);
 
 
         $role = Role::find($id);
@@ -142,7 +142,7 @@ class RoleController extends Controller
 
 
         return redirect()->route('roles.index')
-                        ->with('success','Rol actualizado exitosamente');
+            ->with('success', 'Rol actualizado exitosamente');
     }
     /**
      * Remove the specified resource from storage.
@@ -150,10 +150,40 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('roles.index')
-                        ->with('success','Rol eliminado exitosamente');
+        $id = $request->role_id;
+        DB::table("roles")->where('id', $id)->delete();
+        return back()
+            ->with('success', 'Rol eliminado exitosamente');
+    }
+
+    /**************************** Additional methods *************************************/
+
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+
+        if ($search === null) {
+            $roles = Role::orderBy('name', 'asc')
+                ->paginate(10);
+        } else {
+            $roles = Role::where('name', 'like', '%' . $search . '%')
+                ->orderBy('name', 'asc')
+                ->paginate(10);
+        }
+
+        return view('partials.roles_table', compact('roles'))
+            ->with('i', ($request->input('page', 1) - 1) * 10)->render();
+    }
+
+    public function clean(Request $request)
+
+    {
+        $roles = Role::orderBy('name', 'asc')
+            ->paginate(10);
+
+        return view('partials.roles_table', compact('roles'))
+            ->with('i', ($request->input('page', 1) - 1) * 10)->render();
     }
 }

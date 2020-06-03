@@ -23,7 +23,6 @@
             @endcan
             @can('Eliminar usuarios')
             <button class="btn btn-danger" data-userid="{{$user->id}}" data-toggle="modal" data-target="#deleteUserModal">Eliminar</button>
-
             @endcan
         </td>
     </tr>

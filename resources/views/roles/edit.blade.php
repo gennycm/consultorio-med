@@ -15,7 +15,7 @@
     @if (count($errors) > 0)
     <div class="alert alert-danger  alert-dismissible fade show">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <strong>Oops!</strong> Hubo un problema con los datos que proporcionaste.<br><br>
         <ul>
             @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
