@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
+    private $branches = ["Mérida"=>"Mérida", "Campeche"=>"Campeche"];
     private  $messages = [
         'cellphone.regex' => 'El Celular debe consistir de 10 dígitos, sin espacios o guiones.',
         'postal_code.regex' => 'El Código Postal debe consistir de 5 dígitos.',
@@ -27,6 +28,7 @@ class PatientController extends Controller
         'street' => 'Calle',
         'number' => 'Número',
         'crossing_1' => 'Cruzamiento 1',
+        'branch' => 'Sucursal 1',
         'street_name' => 'Nombre de la calle',
         'postal_code' => 'Código postal',
         'city' => 'Ciudad',
@@ -65,8 +67,9 @@ class PatientController extends Controller
     public function create()
     {
         $institutions = Institution::pluck('name', 'id')->all();
+        $branches = $this->branches;
 
-        return view('patients.create', compact('institutions'));
+        return view('patients.create', compact('institutions', 'branches'));
     }
 
     /**
@@ -131,6 +134,7 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
+        $branches = $this->branches;
         $patient = Patient::find($id);
         $institutions = Institution::pluck('name', 'id')->all();
 
@@ -139,7 +143,7 @@ class PatientController extends Controller
         } else {
             $surrogate_id = 0;
         }
-        return view('patients.edit', compact('patient', 'institutions', 'surrogate_id'));
+        return view('patients.edit', compact('patient', 'institutions', 'surrogate_id', 'branches'));
     }
 
     /**
@@ -156,7 +160,8 @@ class PatientController extends Controller
             'first_lastname' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
             'second_lastname' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
             'cellphone' => 'required|numeric|regex:/[0-9]{10}/',
-            'email' => 'required|email|unique:patients,email',
+            'email' => 'required|email|unique:patients,email,'. $id,
+            'birthdate' => 'required|before:today',
             'street' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
             'number' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
             'crossing_1' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
@@ -208,6 +213,9 @@ class PatientController extends Controller
         } else {
             $patients = Patient::where('name', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%')
+                ->orWhere('first_lastname', 'like', '%' . $search . '%')
+                ->orWhere('second_lastname', 'like', '%' . $search . '%')
+                ->orWhere('branch', 'like', '%' . $search . '%')
                 ->orderBy('name', 'asc')
                 ->paginate(10);
         }
@@ -221,7 +229,7 @@ class PatientController extends Controller
     {
         $patients = Patient::orderBy('name', 'asc')
             ->paginate(10);
-            
+
         return view('partials.patients_table', compact('patients'))
             ->with('i', ($request->input('page', 1) - 1) * 10)->render();
     }

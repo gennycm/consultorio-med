@@ -4,7 +4,7 @@
         <th>Celular</th>
         <th>Correo</th>
         <th>Persona</th>
-        <th>Subrogado</th>
+        <th>Sucursal</th>
         <th width="280px">Acciones</th>
     </tr>
     @if(count($patients)>0)
@@ -21,11 +21,7 @@
             @endif
         </td>
         <td>
-            @if ($patient->is_surrogate === 0)
-            Sí
-            @else
-            No
-            @endif
+            {{$patient->branch}}
         </td>
         <td>
             <a class="btn btn-info" href="{{ route('patients.show',$patient->id) }}">Ver</a>

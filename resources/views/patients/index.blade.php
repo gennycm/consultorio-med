@@ -29,7 +29,7 @@
             <div class="row">
                <div class="col-md-12 col-sm-11">
                   <div class="input-group mb-3">
-                     <input type="text" class="form-control" id="search-field" name="search" placeholder="Nombre" aria-label="Introduce el nombre de la institución" autocomplete="off">
+                     <input type="text" class="form-control" id="search-field" name="search" placeholder="Nombre o Correo o Sucursal" aria-label="Introduce el texto de la búsqueda" autocomplete="off">
                      <div class="input-group-append">
                         <button id="search" class="btn btn-dark" type="button">Buscar</button>
                      </div>

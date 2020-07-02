@@ -92,6 +92,12 @@
     <div class="row" style="margin-bottom: 40px;">
         <div class="col-xs-12 col-sm-3 col-md-4">
             <div class="form-group">
+                <strong>Sucursal:</strong>
+                {!! Form::select('branch', $branches, [], array('class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-4">
+            <div class="form-group">
                 <strong>Calle:</strong>
                 {!! Form::text('street', null, array('class' => 'form-control')) !!}
             </div>
@@ -104,14 +110,8 @@
         </div>
         <div class="col-xs-12 col-sm-4 col-md-4">
             <div class="form-group">
-                <strong>Cruzamiento 1:</strong>
+                <strong>Cruzamientos:</strong>
                 {!! Form::text('crossing_1', null, array('class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <div class="form-group">
-                <strong>Cruzamiento 2:</strong>
-                {!! Form::text('crossing_2', null, array('class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-4">
@@ -157,7 +157,7 @@
         <div class="col-xs-12 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>RFC:</strong>
-                {!! Form::text('RFC', null, array('class' => 'form-control')) !!}
+                {!! Form::text('RFC', null, array('class' => 'form-control', 'style'=>'text-transform: uppercase;')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-2 col-md-2">
@@ -215,7 +215,7 @@
             var dob = $(this)[0].value;
             dob = new Date(dob);
             var today = new Date();
-            var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+            var age = Math.floor((today - dob) / (365.25 * 24 * 60 * 60 * 1000));
             $('#age').val(age);
 
         });

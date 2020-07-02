@@ -65,13 +65,16 @@
    <div class="row" style="margin-bottom: 40px;">
       <div class="col-xs-12 col-sm-12 col-md-12">
          <div class="form-group">
+            <strong>Sucursal:</strong>
+            {{ $patient->branch }}
+         </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12">
+         <div class="form-group">
             <strong>Dirección:</strong>
             Calle {{ $patient->street }}
             Num. {{ $patient->number }}
             por {{ $patient->crossing_1 }}
-            @if ($patient->crossing_2 !== null)
-            y {{ $patient->crossing_2 }}
-            @endif
             {{ $patient->street_name }}
          </div>
       </div>
@@ -110,7 +113,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12">
          <div class="form-group">
             <strong>RFC:</strong>
-            {{ $patient->RFC }}
+            <span style="text-transform: uppercase;">{{ $patient->RFC }}</span>
          </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12">

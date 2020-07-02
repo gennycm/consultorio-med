@@ -56,16 +56,28 @@
                 {!! Form::text('second_lastname', null, array('class' => 'form-control')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="form-group">
                 <strong>Celular:</strong>
                 {!! Form::text('cellphone', null, array('class' => 'form-control')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="form-group">
                 <strong>Correo electrónico:</strong>
                 {!! Form::text('email', null, array('class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3">
+            <div class="form-group">
+                <strong>Fecha de nacimiento:</strong>
+                {!! Form::date('birthdate', null, array('class' => 'form-control', 'id'=>'birthdate', 'max'=>\Carbon\Carbon::now()->toDateString())) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3">
+            <div class="form-group">
+                <strong>Edad:</strong>
+                {!! Form::text('age', \Carbon\Carbon::parse($patient->birthdate)->age, array('class' => 'form-control', 'id'=>'age','disabled' => 'disabled')) !!}
             </div>
         </div>
     </div>
@@ -78,6 +90,12 @@
         </div>
     </div>
     <div class="row" style="margin-bottom: 40px;">
+        <div class="col-xs-12 col-sm-3 col-md-4">
+            <div class="form-group">
+                <strong>Sucursal:</strong>
+                {!! Form::select('branch', $branches, [], array('class' => 'form-control')) !!}
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-3 col-md-4">
             <div class="form-group">
                 <strong>Calle:</strong>
@@ -94,12 +112,6 @@
             <div class="form-group">
                 <strong>Cruzamiento 1:</strong>
                 {!! Form::text('crossing_1', null, array('class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <div class="form-group">
-                <strong>Cruzamiento 2:</strong>
-                {!! Form::text('crossing_2', null, array('class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-4">
@@ -145,7 +157,7 @@
         <div class="col-xs-12 col-sm-4 col-md-4">
             <div class="form-group">
                 <strong>RFC:</strong>
-                {!! Form::text('RFC', null, array('class' => 'form-control')) !!}
+                {!! Form::text('RFC', null, array('class' => 'form-control', 'style'=>'text-transform: uppercase;')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-2 col-md-2">
