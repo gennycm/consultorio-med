@@ -42,6 +42,19 @@
             {{ $patient->cellphone }}
          </div>
       </div>
+      <div class="col-xs-12 col-sm-12 col-md-12">
+         <div class="form-group">
+            <strong>Fecha de nacimiento:</strong>
+            {{date('d-M-Y', strtotime($patient->birthdate)) }}
+         </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12">
+         <div class="form-group">
+            <strong>Edad:</strong>
+            {{\Carbon\Carbon::parse($patient->birthdate)->age}}
+
+         </div>
+      </div>
    </div>
    <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">

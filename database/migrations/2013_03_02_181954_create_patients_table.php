@@ -18,6 +18,7 @@ class CreatePatientsTable extends Migration
             $table->string('name');
             $table->string('first_lastname');
             $table->string('second_lastname');
+            $table->date('birthdate');
             $table->string('street');
             $table->string('number');
             $table->integer('crossing_1');

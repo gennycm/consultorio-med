@@ -56,16 +56,28 @@
                 {!! Form::text('second_lastname', null, array('class' => 'form-control')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="col-xs-12 col-sm-3 col-md-3">
             <div class="form-group">
                 <strong>Celular:</strong>
                 {!! Form::text('cellphone', null, array('class' => 'form-control')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="col-xs-12 col-sm-3 col-md-3">
             <div class="form-group">
                 <strong>Correo electrónico:</strong>
                 {!! Form::text('email', null, array('class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3">
+            <div class="form-group">
+                <strong>Fecha de nacimiento:</strong>
+                {!! Form::date('birthdate', null, array('class' => 'form-control', 'id'=>'birthdate', 'max'=>\Carbon\Carbon::now()->toDateString())) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3">
+            <div class="form-group">
+                <strong>Edad:</strong>
+                {!! Form::text('age', null, array('class' => 'form-control', 'id'=>'age','disabled' => 'disabled')) !!}
             </div>
         </div>
     </div>
@@ -196,6 +208,19 @@
 <script src="{{ asset(config('myconfig.public_path').'/vendor/jquery/jquery.min.js') }}"></script>
 <script>
     $(document).ready(function() {
+        //Change events for Date
+        $('#birthdate').change(function() {
+            console.log($(this)[0].value);
+            //Calculate age
+            var dob = $(this)[0].value;
+            dob = new Date(dob);
+            var today = new Date();
+            var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+            $('#age').val(age);
+
+        });
+
+        //Change events for facturacion
         $('input[type=text][name="p_phys"]').val("0");
         $('input[type=text][name="p_moral"]').val("1");
 

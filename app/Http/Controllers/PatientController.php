@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class PatientController extends Controller
 {
     private  $messages = [
-        'cellphone.regex' => 'El Celular debe consistir de 10 dígitos.',
+        'cellphone.regex' => 'El Celular debe consistir de 10 dígitos, sin espacios o guiones.',
         'postal_code.regex' => 'El Código Postal debe consistir de 5 dígitos.',
     ];
 
@@ -23,6 +23,7 @@ class PatientController extends Controller
         'second_lastname' => 'Apellido Materno',
         'cellphone' => 'Celular',
         'email' => 'Correo electrónico',
+        'birthdate' => 'Fecha de nacimiento',
         'street' => 'Calle',
         'number' => 'Número',
         'crossing_1' => 'Cruzamiento 1',
@@ -83,6 +84,7 @@ class PatientController extends Controller
             'cellphone' => 'required|numeric|regex:/[0-9]{10}/',
             'email' => 'required|email|unique:patients,email',
             'street' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
+            'birthdate' => 'required|before:today',
             'number' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
             'crossing_1' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s-]+$/',
             'street_name' => 'required|regex:/^[A-Za-z0-9üéáíóúñÑÁÉÍÓÚ\s]+$/',
