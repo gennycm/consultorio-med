@@ -15,7 +15,7 @@ class CreateInstitutionsTable extends Migration
     {
         Schema::create('institutions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->string('name');
             $table->string('num_contract');
             $table->string('rfc');
